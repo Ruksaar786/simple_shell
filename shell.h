@@ -12,6 +12,13 @@
 #include <time.h>
 #include <stdbool.h>
 
+int _strlen(const char *s);
+char *_strcpy(char *dest, const char *src);
+int _putchar(char c);
+void _puts(char *str);
+unsigned int nbr_spaces(char *s);
+char **stringToTokens(char *str);
+
 /* environment variables */
 extern char **environ;
 extern __sighandler_t signal(int __sig, __sighandler_t __handler);
