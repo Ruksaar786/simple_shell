@@ -1,62 +1,72 @@
-#include "shell.h"
-
-
-	char **commands = NULL;
-	char *line = NULL;
-	char *shell_name = NULL;
-	int status = 0;
+#include "simple_shell.h"
 
 /**
- * main - the main shell code
- * @argc: number of arguments passed
- * @argv: program arguments to be parsed
- *
- * applies the functions in utils and helpers
- * implements EOF
- * Prints error on Failure
- * Return: 0 on success
- */
+* bi_exit - exit
+* Return: always zero to change state
+*/
 
-
-int main(int argc __attribute__((unused)), char **argv)
+int bi_exit(void)
 {
-	char **current_command = NULL;
-	int i, type_command = 0;
-	size_t n = 0;
-
-	signal(SIGINT, ctrl_c_handler);
-	shell_name = argv[0];
-	while (1)
-	{
-		non_interactive();
-		print(" ($) ", STDOUT_FILENO);
-		if (getline(&line, &n, stdin) == -1)
-		{
-			free(line);
-			exit(status);
-		}
-			remove_newline(line);
-			remove_comment(line);
-			commands = tokenizer(line, ";");
-
-		for (i = 0; commands[i] != NULL; i++)
-		{
-			current_command = tokenizer(commands[i], " ");
-			if (current_command[0] == NULL)
-			{
-				free(current_command);
-				break;
-			}
-			type_command = parse_command(current_command[0]);
-
-			/* initializer -   */
-			initializer(current_command, type_command);
-			free(current_command);
-		}
-		free(commands);
-	}
-	free(line);
-
-	return (status);
+	/* git change */
+	return(0);
 }
 
+/**
+* bi_env - gets environ vars
+* Return: always zero
+*/
+
+int bi_env(void)
+{
+int i = 0;
+int str_len;
+
+	/* get the environ */
+	while (environ[i] != NULL)
+	{
+		/* walk the environ to count */
+		str_len = _strlen(environ[i]);
+		/* print the environ */
+		write(1, environ[i], str_len);
+		write(1, "\n", 2);
+		i++;
+	}
+	return (1);
+}
+
+/**
+* main - Entry point
+* Return: EXIT_SUCCESS
+*/
+
+int main(void)
+{
+/* config */
+/* loop for commands */
+
+	int state;
+	char *input = NULL;
+	char **args;
+	char *builtinlist[] = {"env", "exit"};
+	size_t bufferinput = 0;
+
+	/* define prompt */
+	do {
+	if (isatty(0))
+	{
+		write(1, JR_PROMPT, 2);
+	}
+	input = read_input(&input, &bufferinput);
+	/* start tokenization process */
+	args = break_input(input);
+	/* obtain info to break the loop */
+
+	state = run_command(args, builtinlist);
+	/* cleanup, free memory, etc */
+
+	free(args);
+	/* again */
+	} while (state);
+	free(input);
+return (EXIT_SUCCESS);
+}
