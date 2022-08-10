@@ -1,62 +1,24 @@
-#include "shell.h"
+/*
+* builtins.c - List of buitins and functions
+* Author: Rodrigo Zárate Algecira and Joana Casallas
+* Date: August 22, 2021
+*/
+
+#include "simple_shell.h"
 
 /**
- *env - prints the current_environnement
- *@tokenized_command: command entered
- *
- *Return: void
- */
+* builtins - List of builtins
+* @builtinlist: char duoble pointer
+* Return: int
+*/
 
-void env(char **tokenized_command __attribute__((unused)))
+int builtins(char **builtinlist)
 {
-	int i;
+int s_list;
+int s_char;
+s_list = sizeof(builtinlist);
+s_char = sizeof(char *);
 
-	for (i = 0; environ[i] != NULL; i++)
-	{
-		print(environ[i], STDOUT_FILENO);
-		print("\n", STDOUT_FILENO);
-	}
-}
-
-/**
- * quit - exits the shell
- * @tokenized_command: command entered
- *
- * Return: void
- */
-
-void quit(char **tokenized_command)
-{
-	int num_token = 0, arg;
-
-	for (; tokenized_command[num_token] != NULL; num_token++)
-		;
-	if (num_token == 1)
-	{
-		free(tokenized_command);
-		free(line);
-		free(commands);
-		exit(status);
-	}
-	else if (num_token == 2)
-	{
-		arg = _atoi(tokenized_command[1]);
-		if (arg == -1)
-		{
-			print(shell_name, STDERR_FILENO);
-			print(": 1: exit: Illegal number: ", STDERR_FILENO);
-			print(tokenized_command[1], STDERR_FILENO);
-			print("\n", STDERR_FILENO);
-			status = 2;
-		}
-		else
-		{
-			free(line);
-			free(tokenized_command);
-			free(commands);
-			exit(arg);
-		}
-	}
-	else
-		print("$: exit doesn't take more than one argument\n", STDERR_FILENO);
+	/* size of list in chars */
+	return (s_list / s_char);
 }
