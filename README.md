@@ -154,9 +154,8 @@ ubunto@ubuntu:~/OS/simple_shell$
 No known Bugs.
 
 ## TEAM
-[GitHub/jane]: <https://github.com/jayne-0>
-[GitHub/mariem]: <https://github.com/tecnophille>
-[Twitter/janeizzy240]: <https://twitter.com/janeizzy240>
-[Twitter/Tecnophille]: <https://twitter.com/tecnophille>
+[GitHub/OhiareYazid]: <https://github.com/OhiareYazid>
+[GitHub/Ruksaar786]: <https://github.com/Ruksaar786>
+
 
 
